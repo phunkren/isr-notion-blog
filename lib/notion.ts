@@ -23,6 +23,10 @@ export async function getPosts(databaseId) {
 }
 
 export function getPostsIds() {
+  if (!fs.existsSync(POSTS_DIR)) {
+    fs.mkdirSync(POSTS_DIR);
+  }
+
   const fileNames = fs.readdirSync(POSTS_DIR);
 
   return fileNames.map((fileName) => {
