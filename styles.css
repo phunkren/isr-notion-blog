@@ -1,0 +1,10 @@
+body {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+main {
+  max-width: 720px;
+  padding: 0 1rem;
+  margin: 1rem auto;
+}
