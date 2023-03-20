@@ -2,7 +2,7 @@ import { GetStaticProps } from "next";
 import { createPosts, getPosts } from "../lib/notion";
 import { filterPosts, sortPosts } from "../util/notion";
 import { BlogPost } from "../types/notion";
-import { ONE_WEEK_IN_SECONDS } from "../util/constants";
+import { ONE_DAY_IN_SECONDS } from "../util/constants";
 
 type Props = {
   posts: BlogPost[];
@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       posts: sortedPosts,
     },
-    revalidate: ONE_WEEK_IN_SECONDS,
+    revalidate: ONE_DAY_IN_SECONDS,
   };
 };
 
