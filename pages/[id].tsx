@@ -3,7 +3,7 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkMdx from "remark-mdx";
 import { createPosts, getPostData, getPosts, getPostsIds } from "../lib/notion";
-import { ONE_WEEK_IN_SECONDS } from "../util/constants";
+import { ONE_DAY_IN_SECONDS } from "../util/constants";
 import { filterPosts } from "../util/notion";
 
 type Props = {
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       postData,
     },
-    revalidate: ONE_WEEK_IN_SECONDS,
+    revalidate: ONE_DAY_IN_SECONDS,
   };
 };
 
