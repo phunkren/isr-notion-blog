@@ -46,6 +46,10 @@ export async function createPosts(posts: BlogPost[]) {
     const mdString = n2m.toMarkdownString(mdblocks);
     const filename = `${POSTS_DIR}/${slug}.mdx`;
 
+    if (!fs.existsSync(POSTS_DIR)) {
+      fs.mkdirSync(POSTS_DIR);
+    }
+
     fs.writeFile(filename, mdString, (err) => {
       err !== null && console.log(err);
     });

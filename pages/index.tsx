@@ -13,11 +13,6 @@ export const getStaticProps: GetStaticProps = async () => {
   const publishedPosts = filterPosts(posts);
   const sortedPosts = sortPosts(publishedPosts);
 
-  // This prevents the files being created on every local build
-  if (process.env.NODE_ENV === "production") {
-    await createPosts(posts);
-  }
-
   return {
     props: {
       posts: sortedPosts,

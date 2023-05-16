@@ -2,11 +2,26 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkMdx from "remark-mdx";
-import { getPostData, getPostsIds } from "../lib/notion";
+import { createPosts, getPostData, getPosts, getPostsIds } from "../lib/notion";
 import { ONE_WEEK_IN_SECONDS } from "../util/constants";
+import { filterPosts } from "../util/notion";
 
 type Props = {
   postData: string;
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getPosts(process.env.NOTION_DATABASE_ID);
+  const publishedPosts = filterPosts(posts);
+
+  await createPosts(publishedPosts);
+
+  const paths = getPostsIds();
+
+  return {
+    paths: paths,
+    fallback: false,
+  };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -18,15 +33,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       postData,
     },
     revalidate: ONE_WEEK_IN_SECONDS,
-  };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = getPostsIds();
-
-  return {
-    paths,
-    fallback: false,
   };
 };
 
