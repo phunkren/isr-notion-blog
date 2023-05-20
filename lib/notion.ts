@@ -39,16 +39,16 @@ export function getPostsIds() {
 }
 
 export async function createPosts(posts: BlogPost[]) {
+  if (!fs.existsSync(POSTS_DIR)) {
+    fs.mkdirSync(POSTS_DIR);
+  }
+
   for (const post of posts) {
     const uuid = post.id;
     const slug = post.properties.slug.rich_text[0].plain_text;
     const mdblocks = await n2m.pageToMarkdown(uuid);
     const mdString = n2m.toMarkdownString(mdblocks);
     const filename = `${POSTS_DIR}/${slug}.mdx`;
-
-    if (!fs.existsSync(POSTS_DIR)) {
-      fs.mkdirSync(POSTS_DIR);
-    }
 
     fs.writeFile(filename, mdString, (err) => {
       err !== null && console.log(err);
